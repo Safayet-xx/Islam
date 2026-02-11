@@ -1,0 +1,20 @@
+# CNAME File for Custom Domain
+# 
+# If you have a custom domain (e.g., www.yourname.com), 
+# uncomment the line below and replace with your domain:
+#
+# www.yourname.com
+#
+# OR for apex domain:
+#
+# yourname.com
+#
+# Then configure your DNS settings:
+# - For www: Add CNAME record pointing to your-username.github.io
+# - For apex: Add A records pointing to GitHub's IPs
+#
+# GitHub's A record IPs:
+# 185.199.108.153
+# 185.199.109.153
+# 185.199.110.153
+# 185.199.111.153
