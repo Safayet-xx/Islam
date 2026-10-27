@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Skill Exchange Platform - Md Safayet Islam</title>
+    <meta name="description" content="A Django web app where university students and professors trade skills and help using credits instead of money, deployed on Google Cloud.">
+
+    <link rel="stylesheet" href="../css/vendor.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/project.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+</head>
+<body>
+
+    <header class="cs-header">
+        <div class="cs-header__inner">
+            <a class="cs-header__logo" href="../index.html">Md Safayet Islam</a>
+            <a class="cs-header__back" href="../index.html#portfolio">&larr; All projects</a>
+        </div>
+    </header>
+
+    <main class="cs-main">
+
+        <!-- Hero -->
+        <section class="cs-hero">
+            <div class="cs-hero__tag">Group Project &middot; Web Development</div>
+            <h1 class="cs-hero__title">University Skill Exchange Platform</h1>
+            <p class="cs-hero__lead">
+                A Django web app where university students and professors trade skills and help using
+                credits instead of money, deployed on Google Cloud.
+            </p>
+
+            <dl class="cs-meta">
+                <div>
+                    <dt>Team</dt>
+                    <dd>6 members</dd>
+                </div>
+                <div>
+                    <dt>My role</dt>
+                    <dd>Backend lead, deployment</dd>
+                </div>
+                <div>
+                    <dt>Stack</dt>
+                    <dd>Django, PostgreSQL, GCP</dd>
+                </div>
+            </dl>
+
+            <div class="cs-actions">
+                <a class="btn btn--primary" href="https://github.com/Safayet-xx/Exchange_" target="_blank">View on GitHub</a>
+            </div>
+        </section>
+
+        <!-- Problem & idea -->
+        <section class="cs-section">
+            <div class="cs-two">
+                <div>
+                    <h2>The problem</h2>
+                    <p>
+                        At university, lots of people need help with something (a coding bug, a stats concept,
+                        a presentation) and lots of people are good at something. Paid tutoring is expensive and
+                        informal help depends on who you already know. There was no simple way to find someone
+                        with the right skill and give something back for their time.
+                    </p>
+                </div>
+                <div>
+                    <h2>The idea</h2>
+                    <p>
+                        A skill exchange where time and knowledge are the currency, not money. Every user starts
+                        with a fixed number of credits (for example 10). When you help someone, credits move from
+                        their wallet to yours. You can then spend those credits to get help in a different area.
+                        This rewards people who help and keeps the community collaborative.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="cs-section">
+            <h2>Key features</h2>
+            <div class="cs-rows">
+                <div class="cs-row">
+                    <h3>OTP email authentication</h3>
+                    <p>New users verify their university email with a one-time code before the account is active. The same OTP system handles password resets.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Skills marketplace</h3>
+                    <p>Users list the skills they can offer, with a proficiency level, and browse skills others are offering.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Session booking</h3>
+                    <p>Users request and book help sessions with the person offering a skill.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Credit wallet</h3>
+                    <p>Each user gets a wallet automatically on signup. Credits transfer between wallets when a session is completed, so helpers are rewarded.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>User profiles</h3>
+                    <p>Each account has a profile, created automatically, holding the user's details and skills.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Role -->
+        <section class="cs-section">
+            <h2>My role</h2>
+            <p>This was a team project with six members. My responsibilities were:</p>
+            <ul>
+                <li><strong>Backend architecture:</strong> structuring the Django apps, models and how they relate (users, profiles, skills, sessions, wallets, OTPs).</li>
+                <li><strong>Credit wallet:</strong> designing and building the wallet and the transaction logic for peer-to-peer credit transfers.</li>
+                <li><strong>Deployment:</strong> containerising the app and deploying it to Google Cloud App Engine.</li>
+                <li><strong>Team coordination and Git workflow:</strong> organising who worked on what and running a pull-before-every-push routine during group sessions to avoid merge conflicts.</li>
+            </ul>
+        </section>
+
+        <!-- Stack & architecture -->
+        <section class="cs-section">
+            <h2>Tech stack</h2>
+            <div class="cs-rows">
+                <div class="cs-row"><h3>Language &amp; framework</h3><p>Python, Django</p></div>
+                <div class="cs-row"><h3>Database</h3><p>PostgreSQL in production, SQLite for local development</p></div>
+                <div class="cs-row"><h3>Authentication</h3><p>OTP email verification via Gmail SMTP (app passwords)</p></div>
+                <div class="cs-row"><h3>Serving</h3><p>Gunicorn application server behind an Nginx reverse proxy</p></div>
+                <div class="cs-row"><h3>Caching</h3><p>Redis</p></div>
+                <div class="cs-row"><h3>Containers</h3><p>Docker</p></div>
+                <div class="cs-row"><h3>Cloud</h3><p>Google Cloud Platform, App Engine</p></div>
+                <div class="cs-row"><h3>Version control</h3><p>Git and GitHub</p></div>
+            </div>
+
+            <h2 style="margin-top: 48px !important;">How it fits together</h2>
+            <div class="cs-flow" aria-label="Request flow: Nginx to Gunicorn to Django, which uses PostgreSQL, Redis and Gmail SMTP">
+                <div class="cs-flow__node"><strong>Nginx</strong><span>reverse proxy</span></div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node"><strong>Gunicorn</strong><span>app server</span></div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node"><strong>Django</strong><span>application</span></div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node cs-flow__node--stack">
+                    <div><strong>PostgreSQL</strong><span>data</span></div>
+                    <div><strong>Redis</strong><span>cache</span></div>
+                    <div><strong>Gmail SMTP</strong><span>OTP emails</span></div>
+                </div>
+            </div>
+            <p>
+                Nginx takes incoming requests and passes them to Gunicorn, which runs the Django app. Django reads
+                and writes data in PostgreSQL, caches with Redis, and sends OTP codes through Gmail SMTP.
+            </p>
+            <p>
+                For local development the app runs on SQLite with Django's console email backend, so OTP codes
+                print straight to the terminal and the whole signup flow can be tested without sending real emails.
+            </p>
+        </section>
+
+        <!-- Challenges -->
+        <section class="cs-section">
+            <h2>Challenges and how I solved them</h2>
+            <ol class="cs-challenges">
+                <li>
+                    <h3>Opaque 500 errors in production</h3>
+                    <p>Signup and login were failing on the deployed site with no useful message. I temporarily turned on Django's DEBUG mode to see the real traceback, fixed the cause, then switched it back off.</p>
+                </li>
+                <li>
+                    <h3>"Service Unavailable" after deploying</h3>
+                    <p>The Docker entrypoint script wasn't included in the deployment manifest with the correct path, so the container never started properly. Adding it explicitly fixed the issue.</p>
+                </li>
+                <li>
+                    <h3>Windows vs Linux line endings</h3>
+                    <p>Team members on Windows were committing files with CRLF line endings, which broke shell scripts inside the Linux Docker container. I added a <code>.gitattributes</code> file to force LF endings so it couldn't happen again.</p>
+                </li>
+                <li>
+                    <h3>OTP field too short</h3>
+                    <p>The OTP model's purpose field was too short for values like "Password Reset" (14 characters), which caused silent failures. I resized the field to fit every purpose string the app uses.</p>
+                </li>
+                <li>
+                    <h3>Tests not matching the real models</h3>
+                    <p>Early tests referred to names that didn't exist in the code (for example <code>UserProfile</code> instead of <code>Profile</code>). I rewrote them against the actual model structure and methods.</p>
+                </li>
+                <li>
+                    <h3>Django signals in tests</h3>
+                    <p>Profiles and wallets are created automatically by signals when a user signs up, which clashed with test setup that created them manually. I adjusted the tests to work with the signals instead of against them.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Learned & next -->
+        <section class="cs-section">
+            <div class="cs-two">
+                <div>
+                    <h2>What I learned</h2>
+                    <ul>
+                        <li>Deployment is its own skill. Code that works locally can fail in production for reasons that have nothing to do with the code itself (paths, manifests, line endings, environment config).</li>
+                        <li>Read the error properly before guessing. Getting the real traceback saved more time than any amount of trial and error.</li>
+                        <li>Tests are only useful if they match the real code, so check the models first.</li>
+                        <li>In a team of six, a simple shared Git routine prevents most conflicts before they happen.</li>
+                        <li>How to design a small transaction system (the credit wallet) where balances must stay correct.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Future improvements</h2>
+                    <ul>
+                        <li><strong>Skill matching and recommendations:</strong> use data on skills, bookings and ratings to suggest the best helper for a request. This is where my data science background would come in.</li>
+                        <li><strong>Ratings and reviews</strong> after each session, to build trust.</li>
+                        <li><strong>Analytics dashboard</strong> showing which skills are most in demand across the university.</li>
+                        <li><strong>Notifications</strong> for booking requests and confirmations.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Links -->
+        <section class="cs-section">
+            <h2>Tech and links</h2>
+            <ul class="cs-tech">
+                <li>Python</li>
+                <li>Django</li>
+                <li>PostgreSQL</li>
+                <li>SQLite</li>
+                <li>Docker</li>
+                <li>Nginx</li>
+                <li>Gunicorn</li>
+                <li>Redis</li>
+                <li>Google Cloud (App Engine)</li>
+                <li>Gmail SMTP</li>
+                <li>Git</li>
+                <li>GitHub</li>
+            </ul>
+            <p style="margin-top: 24px !important;">
+                Source code: <a href="https://github.com/Safayet-xx/Exchange_" target="_blank">github.com/Safayet-xx/Exchange_</a><br>
+                Live demo: hosted on the university's demo server for the project showcase (not publicly available).
+            </p>
+        </section>
+
+        <nav class="cs-pager" aria-label="Project navigation">
+            <a href="../index.html#portfolio">&larr; Back to all projects</a>
+        </nav>
+
+    </main>
+
+    <footer class="cs-footer">
+        <div class="cs-footer__inner">
+            <p>&copy; Copyright Md Safayet Islam 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
