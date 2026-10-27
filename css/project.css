@@ -55,7 +55,7 @@
 }
 
 .cs-hero__tag {
-    color: var(--dark-text-muted);
+    color: var(--accent);
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
