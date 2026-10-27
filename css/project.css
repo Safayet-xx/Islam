@@ -364,9 +364,19 @@
 /* headline stats */
 .cs-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
     margin: 0 0 24px;
+}
+
+.cs-stats--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 860px) {
+    .cs-stats--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .cs-stat {

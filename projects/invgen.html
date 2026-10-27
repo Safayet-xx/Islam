@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invgen: Multi-Tenant Invoicing SaaS - Md Safayet Islam</title>
+    <meta name="description" content="A full-stack invoicing platform for freelancers and small businesses: branded invoices and quotes, card and bank payments, VAT and accountant exports, teams and subscription plans.">
+
+    <link rel="stylesheet" href="../css/vendor.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/project.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+</head>
+<body>
+
+    <header class="cs-header">
+        <div class="cs-header__inner">
+            <a class="cs-header__logo" href="../index.html">Md Safayet Islam</a>
+            <a class="cs-header__back" href="../index.html#portfolio">&larr; All projects</a>
+        </div>
+    </header>
+
+    <main class="cs-main">
+
+        <!-- Hero -->
+        <section class="cs-hero">
+            <div class="cs-hero__tag">SaaS &middot; Full-Stack Development</div>
+            <h1 class="cs-hero__title">Invgen: Multi-Tenant Invoicing SaaS</h1>
+            <p class="cs-hero__lead">
+                A full-stack invoicing platform that lets freelancers and small businesses create branded invoices
+                and quotes, get paid by card or bank transfer, and keep their VAT and accountant paperwork in order,
+                with teams and subscription plans built in.
+            </p>
+
+            <dl class="cs-meta">
+                <div>
+                    <dt>Status</dt>
+                    <dd>Live at invgen.co.uk</dd>
+                </div>
+                <div>
+                    <dt>Stack</dt>
+                    <dd>FastAPI, React, PostgreSQL, Docker, Stripe</dd>
+                </div>
+                <div>
+                    <dt>Hosting</dt>
+                    <dd>Self-hosted Docker VPS</dd>
+                </div>
+            </dl>
+
+            <div class="cs-actions">
+                <a class="btn btn--primary" href="https://invgen.co.uk" target="_blank" rel="noopener">Visit invgen.co.uk</a>
+            </div>
+        </section>
+
+        <!-- Numbers -->
+        <section class="cs-section">
+            <h2>By the numbers</h2>
+            <div class="cs-stats cs-stats--4">
+                <div class="cs-stat">
+                    <span>Python</span>
+                    <strong>~17,700</strong>
+                    <em>lines</em>
+                </div>
+                <div class="cs-stat">
+                    <span>JavaScript</span>
+                    <strong>~11,800</strong>
+                    <em>lines</em>
+                </div>
+                <div class="cs-stat">
+                    <span>Domain models</span>
+                    <strong>13</strong>
+                    <em>with 16 Alembic migrations</em>
+                </div>
+                <div class="cs-stat">
+                    <span>API modules</span>
+                    <strong>21</strong>
+                    <em>across 50+ commits</em>
+                </div>
+            </div>
+            <p>
+                I built the large majority of the platform. A collaborator contributed early work on the analytics
+                suite, the PostgreSQL migration and the admin console.
+            </p>
+        </section>
+
+        <!-- Features -->
+        <section class="cs-section">
+            <h2>Key features</h2>
+            <div class="cs-rows">
+                <div class="cs-row">
+                    <h3>Multi-tenancy</h3>
+                    <p>Every record is scoped to an organization, with team invites and a join flow. A platform super-admin console handles plans and tenants.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Documents</h3>
+                    <p>Invoices, quotes, credit notes and recurring "scheduled payment" templates. Line-item discounts, VAT, per-company branding (6 accent colours, two layouts, logo, bank details, QR payment link), PDF download, public share links, emailing and WhatsApp sending.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Payment ledger</h3>
+                    <p>Invoices can be paid in instalments. Balance and status (Unpaid, Partially Paid, Paid, Overdue) are always computed from the log. Corrections are reversal entries, never deletes, and manual and Stripe payments go through the same path. A payment log page makes it searchable.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Overdue automation</h3>
+                    <p>Opt-in late fees and emailed reminders from an hourly background job, built so fees and emails can't be applied twice.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Accounting</h3>
+                    <p>VAT return report with Excel export, accountant data exports, and client statements.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Billing</h3>
+                    <p>Free and paid plans with usage limits, expiry notices and renewals, and manual plan requests.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Dashboard</h3>
+                    <p>KPI cards and animated trend, pie and bar charts, plus a reminders list.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decisions -->
+        <section class="cs-section">
+            <h2>Engineering decisions</h2>
+            <ol class="cs-challenges">
+                <li>
+                    <h3>Derived state over stored state</h3>
+                    <p>Status and balance come from the payment ledger, so the data can't drift out of sync.</p>
+                </li>
+                <li>
+                    <h3>Audit-safe corrections</h3>
+                    <p>Reversal entries plus an audit log record every change instead of erasing history.</p>
+                </li>
+                <li>
+                    <h3>Snapshot pattern</h3>
+                    <p>Company and client details are copied onto an invoice when it is created, so editing a company later never rewrites an invoice you already sent.</p>
+                </li>
+                <li>
+                    <h3>Idempotent background jobs</h3>
+                    <p>The overdue sweep marks what it has done, so re-running it can't double-charge. It also never overwrites a "partially paid" status.</p>
+                </li>
+                <li>
+                    <h3>Security-first free tier</h3>
+                    <p>I found a bypass where deleting and recreating invoices reset the free-plan limit, and fixed it with a persistent counter. Invoice numbers are scoped per organization after I fixed a global-numbering bug.</p>
+                </li>
+                <li>
+                    <h3>Two-mode schema management</h3>
+                    <p>Development auto-migrates additively, and production is Alembic-only (16 migrations).</p>
+                </li>
+                <li>
+                    <h3>Ops maturity</h3>
+                    <p>I moved the app from Render (free-tier database expiry) to a self-hosted Docker VPS, with setup scripts, nightly backups and a data-import script.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Stack -->
+        <section class="cs-section">
+            <h2>Tech stack</h2>
+            <div class="cs-rows">
+                <div class="cs-row"><h3>Backend</h3><p>Python, FastAPI, async SQLAlchemy 2, Pydantic v2, Alembic</p></div>
+                <div class="cs-row"><h3>Database</h3><p>PostgreSQL</p></div>
+                <div class="cs-row"><h3>Frontend</h3><p>React 18 (CRA), Bootstrap 5, custom design system, jsPDF, installable PWA</p></div>
+                <div class="cs-row"><h3>Auth &amp; security</h3><p>Custom IAM/RBAC engine, JWT cookies with CSRF protection, email verification, Google Sign-In, TOTP two-factor auth, rate limiting</p></div>
+                <div class="cs-row"><h3>Payments</h3><p>Stripe checkout and webhooks, with a demo mode</p></div>
+                <div class="cs-row"><h3>Email</h3><p>SendGrid, Resend or SMTP behind one dispatcher</p></div>
+                <div class="cs-row"><h3>Infrastructure</h3><p>Docker Compose (Postgres, API, web), Caddy reverse proxy with automatic HTTPS, nightly <code>pg_dump</code> backups with an off-server copy</p></div>
+            </div>
+        </section>
+
+        <!-- Tech -->
+        <section class="cs-section">
+            <h2>Tech</h2>
+            <ul class="cs-tech">
+                <li>Python</li>
+                <li>FastAPI</li>
+                <li>SQLAlchemy</li>
+                <li>Alembic</li>
+                <li>PostgreSQL</li>
+                <li>React</li>
+                <li>Bootstrap</li>
+                <li>Stripe</li>
+                <li>Docker</li>
+                <li>Caddy</li>
+                <li>JWT</li>
+                <li>TOTP 2FA</li>
+            </ul>
+        </section>
+
+        <nav class="cs-pager" aria-label="Project navigation">
+            <a href="lmfs.html">&larr; London Muslim Funeral Services</a>
+            <a href="../index.html#portfolio">All projects &rarr;</a>
+        </nav>
+
+    </main>
+
+    <footer class="cs-footer">
+        <div class="cs-footer__inner">
+            <p>&copy; Copyright Md Safayet Islam 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
