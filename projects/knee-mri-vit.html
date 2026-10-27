@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knee Injury Detection from MRI - Md Safayet Islam</title>
+    <meta name="description" content="A multi-view Vision Transformer that reads knee MRI scans from three angles and flags ACL tears, meniscus tears and general abnormalities.">
+
+    <link rel="stylesheet" href="../css/vendor.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/project.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+</head>
+<body>
+
+    <header class="cs-header">
+        <div class="cs-header__inner">
+            <a class="cs-header__logo" href="../index.html">Md Safayet Islam</a>
+            <a class="cs-header__back" href="../index.html#portfolio">&larr; All projects</a>
+        </div>
+    </header>
+
+    <main class="cs-main">
+
+        <!-- Hero -->
+        <section class="cs-hero">
+            <div class="cs-hero__tag">Deep Learning &middot; Medical Imaging</div>
+            <h1 class="cs-hero__title">Knee Injury Detection from MRI using Vision Transformers</h1>
+            <p class="cs-hero__lead">
+                A multi-view Vision Transformer that reads knee MRI scans from three angles and flags
+                ACL tears, meniscus tears and general abnormalities.
+            </p>
+
+            <dl class="cs-meta">
+                <div>
+                    <dt>Context</dt>
+                    <dd>Applied Machine Learning (EEEM068), MSc Data Science, University of Surrey</dd>
+                </div>
+                <div>
+                    <dt>Data</dt>
+                    <dd>Stanford MRNet, ~1,130 knee MRI exams</dd>
+                </div>
+                <div>
+                    <dt>Model</dt>
+                    <dd>Multi-view ViT-Small</dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- Overview & problem -->
+        <section class="cs-section">
+            <div class="cs-two">
+                <div>
+                    <h2>Overview</h2>
+                    <p>
+                        The goal was to see how well a Vision Transformer, a model originally built for everyday
+                        photos, could learn to spot sports-related knee injuries in medical scans. I used the
+                        Stanford MRNet dataset of around 1,130 real knee MRI exams.
+                    </p>
+                </div>
+                <div>
+                    <h2>The problem</h2>
+                    <p>
+                        Knee MRIs are 3D volumes captured from three planes (sagittal, coronal and axial), and a
+                        single patient can have more than one injury at once. The data is also heavily imbalanced:
+                        most scans are abnormal, while ACL tears are relatively rare. A naive model can score high
+                        accuracy just by predicting "abnormal" every time, so the real challenge was building
+                        something that genuinely detects the less common injuries.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="cs-section">
+            <h2>Results</h2>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span>Macro ROC-AUC</span>
+                    <strong>~0.84</strong>
+                    <em>across the three labels</em>
+                </div>
+                <div class="cs-stat">
+                    <span>Macro F1</span>
+                    <strong>~0.74&ndash;0.79</strong>
+                    <em>across the three labels</em>
+                </div>
+                <div class="cs-stat">
+                    <span>From-scratch baseline AUC</span>
+                    <strong>~0.74</strong>
+                    <em>same architecture, single plane, no pretraining</em>
+                </div>
+            </div>
+            <p>
+                Training the same architecture from scratch on a single plane reached a noticeably lower AUC,
+                which gave clear evidence that pretraining is essential on a dataset this small.
+            </p>
+        </section>
+
+        <!-- Architecture -->
+        <section class="cs-section">
+            <h2>How the model works</h2>
+            <div class="cs-flow" aria-label="Model flow: three MRI planes each go through a ViT-Small backbone, the CLS embeddings are concatenated, and an MLP head outputs three sigmoid predictions">
+                <div class="cs-flow__node cs-flow__node--stack">
+                    <div><strong>Sagittal</strong><span>3 slices &rarr; RGB</span></div>
+                    <div><strong>Coronal</strong><span>3 slices &rarr; RGB</span></div>
+                    <div><strong>Axial</strong><span>3 slices &rarr; RGB</span></div>
+                </div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node"><strong>ViT-Small</strong><span>one per plane, SiT-S pretrained</span></div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node"><strong>Concatenate</strong><span>3 CLS embeddings</span></div>
+                <div class="cs-flow__arrow" aria-hidden="true">&rarr;</div>
+                <div class="cs-flow__node cs-flow__node--stack">
+                    <div><strong>Abnormal</strong><span>sigmoid</span></div>
+                    <div><strong>ACL tear</strong><span>sigmoid</span></div>
+                    <div><strong>Meniscus tear</strong><span>sigmoid</span></div>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 48px !important;">My approach</h2>
+            <div class="cs-rows">
+                <div class="cs-row">
+                    <h3>Multi-label setup</h3>
+                    <p>Treated the task as three independent yes/no predictions with sigmoid outputs, since a knee can have an ACL tear and a meniscus tear together.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Turning 3D into 2D</h3>
+                    <p>Took three slices from each MRI plane and stacked them as RGB channels, so a pretrained image model could use them directly.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Multi-view late fusion</h3>
+                    <p>Each plane goes through a ViT-Small backbone, and the three CLS token embeddings are concatenated before a custom MLP classification head.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Transfer learning</h3>
+                    <p>Started from SiT-S self-supervised pretrained weights, then fine-tuned with progressive layer unfreezing and layer-wise learning rate decay so the new head learned faster than the pretrained layers.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Handling imbalance</h3>
+                    <p>A WeightedRandomSampler controls how often rare cases are seen, and Focal BCE loss with per-label weights controls how much they matter during training.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Augmentation</h3>
+                    <p>Random rotation (about &plusmn;20&deg;), translation and scaling, plus MixUp for regularisation.</p>
+                </div>
+                <div class="cs-row">
+                    <h3>Evaluation</h3>
+                    <p>Sensitivity, specificity, F1, balanced accuracy and ROC-AUC per label, with confusion matrices, rather than relying on plain accuracy.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learned -->
+        <section class="cs-section">
+            <h2>What I learned</h2>
+            <ul>
+                <li>Why accuracy can be misleading on imbalanced medical data, and how to choose metrics that reflect real clinical usefulness.</li>
+                <li>How sampling and loss weighting solve different parts of the imbalance problem.</li>
+                <li>Practical fine-tuning of transformers: freezing strategies, differential learning rates and avoiding overfitting on small datasets.</li>
+                <li>Iterating properly: the project went through four versions, moving from a single-plane multiclass model to a multi-view multi-label system.</li>
+                <li>Thinking about the ethics of AI in healthcare, including dataset bias and why a model like this should support clinicians rather than replace them.</li>
+            </ul>
+        </section>
+
+        <!-- Tech -->
+        <section class="cs-section">
+            <h2>Tech</h2>
+            <ul class="cs-tech">
+                <li>Python</li>
+                <li>PyTorch</li>
+                <li>timm</li>
+                <li>NumPy</li>
+                <li>scikit-learn</li>
+                <li>Matplotlib</li>
+                <li>Google Colab (GPU)</li>
+                <li>TensorBoard / Weights &amp; Biases</li>
+            </ul>
+        </section>
+
+        <nav class="cs-pager" aria-label="Project navigation">
+            <a href="ml-comparison.html">&larr; Comparing ML Approaches</a>
+            <a href="../index.html#portfolio">All projects &rarr;</a>
+        </nav>
+
+    </main>
+
+    <footer class="cs-footer">
+        <div class="cs-footer__inner">
+            <p>&copy; Copyright Md Safayet Islam 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>

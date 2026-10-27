@@ -294,6 +294,110 @@
     margin: 0 !important;
 }
 
+/* small cards (datasets etc.) */
+.cs-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.cs-card {
+    border: 1px solid var(--dark-border);
+    padding: 20px;
+}
+
+.cs-card h3 {
+    margin: 0 0 6px !important;
+}
+
+.cs-card p {
+    margin: 0 !important;
+    font-size: 15px !important;
+}
+
+/* result bars */
+.cs-bars {
+    display: grid;
+    gap: 14px;
+    margin: 0 0 8px;
+}
+
+.cs-bar {
+    display: grid;
+    grid-template-columns: 180px 1fr 56px;
+    align-items: center;
+    gap: 16px;
+}
+
+.cs-bar__label {
+    color: var(--dark-text);
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+.cs-bar__label small {
+    display: block;
+    color: var(--dark-text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.cs-bar__track {
+    height: 8px;
+    background-color: var(--dark-bg-lighter);
+}
+
+.cs-bar__fill {
+    height: 100%;
+    background-color: var(--dark-text);
+}
+
+.cs-bar__value {
+    color: var(--dark-text);
+    font-size: 15px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* headline stats */
+.cs-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 0 0 24px;
+}
+
+.cs-stat {
+    border: 1px solid var(--dark-border);
+    padding: 20px;
+}
+
+.cs-stat span {
+    display: block;
+    color: var(--dark-text-muted);
+    font-size: 13px;
+    margin: 0 0 6px;
+}
+
+.cs-stat strong {
+    display: block;
+    color: var(--dark-text);
+    font-family: var(--font-2);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.cs-stat em {
+    display: block;
+    color: var(--dark-text-muted);
+    font-size: 13px;
+    font-style: normal;
+    margin: 6px 0 0;
+}
+
 /* pager + footer */
 .cs-pager {
     display: flex;
@@ -338,6 +442,16 @@
 
     .cs-flow {
         flex-direction: column;
+    }
+
+    .cs-bar {
+        grid-template-columns: 1fr 52px;
+        gap: 6px 12px;
+    }
+
+    .cs-bar__track {
+        grid-column: 1 / -1;
+        grid-row: 2;
     }
 
     .cs-flow__arrow {

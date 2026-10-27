@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparing Machine Learning Approaches - Md Safayet Islam</title>
+    <meta name="description" content="A group project comparing seven machine learning approaches on activity recognition, phishing URL detection and stock trading.">
+
+    <link rel="stylesheet" href="../css/vendor.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/project.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+</head>
+<body>
+
+    <header class="cs-header">
+        <div class="cs-header__inner">
+            <a class="cs-header__logo" href="../index.html">Md Safayet Islam</a>
+            <a class="cs-header__back" href="../index.html#portfolio">&larr; All projects</a>
+        </div>
+    </header>
+
+    <main class="cs-main">
+
+        <!-- Hero -->
+        <section class="cs-hero">
+            <div class="cs-hero__tag">Group Project &middot; Machine Learning</div>
+            <h1 class="cs-hero__title">Comparing Machine Learning Approaches Across Real-World Data</h1>
+            <p class="cs-hero__lead">
+                A group project comparing seven machine learning approaches on three very different problems:
+                recognising human activity from sensor data, detecting phishing URLs, and trading a stock.
+                The aim was to see how classical, neural, logic-based and reinforcement learning methods
+                hold up when the data and the task change.
+            </p>
+
+            <dl class="cs-meta">
+                <div>
+                    <dt>Context</dt>
+                    <dd>MSc Data Science, University of Surrey, 2026</dd>
+                </div>
+                <div>
+                    <dt>Team</dt>
+                    <dd>6 members</dd>
+                </div>
+                <div>
+                    <dt>Methods</dt>
+                    <dd>7 approaches, 3 datasets</dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- Datasets -->
+        <section class="cs-section">
+            <h2>Datasets</h2>
+            <div class="cs-cards">
+                <div class="cs-card">
+                    <h3>UCI HAR</h3>
+                    <p>6-class activity recognition: sit, stand, walk, bike, stairs up and down.</p>
+                </div>
+                <div class="cs-card">
+                    <h3>PhiUSIIL</h3>
+                    <p>Phishing URL detection, around 235K rows and 54 features.</p>
+                </div>
+                <div class="cs-card">
+                    <h3>Yahoo Finance (AAPL)</h3>
+                    <p>8 years of daily price data used as a trading environment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classification -->
+        <section class="cs-section">
+            <h2>Classification results</h2>
+            <p>F1 score for each model on the dataset it was evaluated on.</p>
+            <div class="cs-bars">
+                <div class="cs-bar">
+                    <div class="cs-bar__label">SVM (RBF)<small>PhiUSIIL</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 100%"></div></div>
+                    <div class="cs-bar__value">1.000</div>
+                </div>
+                <div class="cs-bar">
+                    <div class="cs-bar__label">MLP<small>PhiUSIIL</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 100%"></div></div>
+                    <div class="cs-bar__value">1.000</div>
+                </div>
+                <div class="cs-bar">
+                    <div class="cs-bar__label">ILP (pyswip)<small>PhiUSIIL</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 99.2%"></div></div>
+                    <div class="cs-bar__value">0.992</div>
+                </div>
+                <div class="cs-bar">
+                    <div class="cs-bar__label">Decision Tree<small>HAR</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 86%"></div></div>
+                    <div class="cs-bar__value">0.860</div>
+                </div>
+                <div class="cs-bar">
+                    <div class="cs-bar__label">Naive Bayes<small>HAR</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 76.7%"></div></div>
+                    <div class="cs-bar__value">0.767</div>
+                </div>
+                <div class="cs-bar">
+                    <div class="cs-bar__label">ILP (PyGoL)<small>HAR</small></div>
+                    <div class="cs-bar__track"><div class="cs-bar__fill" style="width: 44.6%"></div></div>
+                    <div class="cs-bar__value">0.446</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RL -->
+        <section class="cs-section">
+            <h2>Reinforcement learning: Q-Learning trading agent</h2>
+            <div class="cs-stats">
+                <div class="cs-stat">
+                    <span>Q-Learning agent, starting from £10,000</span>
+                    <strong>£9,041</strong>
+                    <em>&minus;9.6%</em>
+                </div>
+                <div class="cs-stat">
+                    <span>Buy-and-hold baseline</span>
+                    <strong>£10,475</strong>
+                    <em>+4.8%</em>
+                </div>
+            </div>
+            <p>
+                The agent underperformed a simple buy-and-hold strategy. This was a useful result in itself:
+                it showed how sensitive tabular Q-Learning is to reward design and state representation
+                when the signal in financial data is noisy.
+            </p>
+        </section>
+
+        <!-- Role -->
+        <section class="cs-section">
+            <h2>What I worked on</h2>
+            <ul>
+                <li>Built the Q-Learning agent and its training loop on the AAPL trading environment.</li>
+                <li>Trained the Naive Bayes classifier for activity recognition.</li>
+                <li>Evaluated the MLP on phishing URL detection.</li>
+                <li>Contributed to reproducible notebooks and project documentation in a 6-person team.</li>
+            </ul>
+        </section>
+
+        <!-- Tech -->
+        <section class="cs-section">
+            <h2>Tech</h2>
+            <ul class="cs-tech">
+                <li>Python</li>
+                <li>scikit-learn</li>
+                <li>Prolog (pyswip, Aleph)</li>
+                <li>Q-Learning</li>
+                <li>pandas</li>
+                <li>yfinance</li>
+                <li>Jupyter</li>
+            </ul>
+        </section>
+
+        <nav class="cs-pager" aria-label="Project navigation">
+            <a href="skill-exchange.html">&larr; Skill Exchange Platform</a>
+            <a href="knee-mri-vit.html">Knee MRI with Vision Transformers &rarr;</a>
+        </nav>
+
+    </main>
+
+    <footer class="cs-footer">
+        <div class="cs-footer__inner">
+            <p>&copy; Copyright Md Safayet Islam 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
